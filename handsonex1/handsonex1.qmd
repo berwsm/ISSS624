@@ -1,0 +1,23 @@
+---
+title: "Hands-on Exercise 1: Geospatial Data Wrangling with R"
+editor: visual
+---
+
+# Overview
+
+# Getting Started
+
+Code chunk to install [sf](https://r-spatial.github.io/sf/) and tidyverse
+
+```{r}
+pacman::p_load(sf, tidyverse)
+
+```
+
+# Importing Geospatial Data
+
+## Importing polygon feature data
+
+```{r}
+mpsz<-st_read(dsn='data/geospatial',layer='MP14_SUBZONE_WEB_PL')
+```
