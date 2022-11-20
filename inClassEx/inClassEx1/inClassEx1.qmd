@@ -1,0 +1,57 @@
+---
+title: "In-class Exercise"
+editor: visual
+---
+
+# Overview
+
+# Getting Started
+
+Code chunk to install [sf](https://r-spatial.github.io/sf/) and tidyverse
+
+```{r}
+pacman::p_load(sf, tidyverse, spdep)
+
+```
+
+# Importing Geospatial Data
+
+## Importing polygon feature dataframe
+
+```{r}
+mpsz<-st_read(dsn='data/geospatial',layer='MP14_SUBZONE_WEB_PL')
+```
+
+Geometry column in blob or list in R indicates if polygon, line or point.
+
+The message above reveals that the geospatial objects are multipolygon features. There are a total of 323 multipolygon features and 15 fields in `mpsz` simple feature data frame. `mpsz` is in **svy21**projected coordinates systems. The bounding box provides the x extend and y extend of the data.
+
+## Importing polyline feature data in shapefile form
+
+```{r}
+cyclingpath = st_read(dsn = "data/geospatial", layer = "CyclingPath")
+```
+
+The message above reveals that there are a total of 1625 features and 2 fields in `cyclingpath`linestring feature data frame and it is in **svy21** projected coordinates system too.
+
+## Importing GIS data in kml format and transforming into projected coordinates system
+
+```{r}
+preschool = st_read("data/geospatial/pre-schools-location-kml.kml") %>%
+  st_transform(crs=3414)
+
+```
+
+The message above reveals that `preschool` is a point feature data frame. There are a total of 1359 features and 2 fields. Different from the previous two simple feature data frame, preschool is in **wgs84** coordinates system (long,lat).
+
+Conversion to SVY21 using st_transform with code 3414.
+
+# Reading Hunan dataframe
+
+```{r}
+hunan_sf = st_read(dsn = "data/geospatial", layer = "Hunan")
+```
+
+```{r}
+hunan = read_csv("data/aspatial/Hunan_2012.csv")
+```

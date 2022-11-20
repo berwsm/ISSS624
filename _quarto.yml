@@ -8,7 +8,11 @@ website:
       - text: Hands-on Exercises
         menu:
           - text: Hands-on Exercise 1
-            href: handsonex1/handsonex1.qmd
+            href: handsOnEx1/handsOnEx1.qmd
+      - text: In-Class Exercises
+        menu:
+          - text: In-Class Exercise 1
+            href: inClassEx/inClassEx1/inClassEx1.qmd
     right:
       - href: index.qmd
         text: Home
