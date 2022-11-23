@@ -2,4 +2,4 @@
 title: "ISSS624"
 ---
 
-This course is ISSS624 Geospatial Analytics.
+This page is for learning and reflections for SMU course ISSS624 Geospatial Analytics.
