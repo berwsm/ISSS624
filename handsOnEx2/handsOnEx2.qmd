@@ -54,6 +54,8 @@ moran.test(hunan$GDPPC,
            na.action=na.omit)
 ```
 
+p-value shows that spatial patterns are significantly different.
+
 ### Monte Carlo Moran's I
 
 ```{r}
@@ -235,6 +237,8 @@ pvalue.map <- tm_shape(hunan.localMI) +
 
 tmap_arrange(localMI.map, pvalue.map, asp=1, ncol=2)
 ```
+
+Each county will have a localised moran's I value computed and it's a measure of how similar a location is when compared with its neighbors.
 
 # Creating LISA Cluster Map
 
