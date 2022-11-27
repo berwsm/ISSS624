@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 1: Geospatial Data Wrangling and Choropleth Mapping with R"
+title: "Hands-on Exercise 1: Geospatial Data Wrangling and Choropleth Mapping with R (Chapter 1 & 2)"
 editor: visual
 ---
 
