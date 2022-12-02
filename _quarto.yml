@@ -11,16 +11,24 @@ website:
             href: handsOnEx/handsOnEx1/handsOnEx1.qmd
           - text: Hands-on Exercise 2
             href: handsOnEx/handsOnEx2/handsOnEx2.qmd
+          - text: Hands-on Exercise 3
+            href: handsOnEx/handsOnEx3/handsOnEx3.qmd
+          - text: Hands-on Exercise 4
+          - text: Hands-on Exercise 5
       - text: In-Class Exercises
         menu:
           - text: In-Class Exercise 1
             href: inClassEx/inClassEx1/inClassEx1.qmd
           - text: In-Class Exercise 2
             href: inClassEx/inClassEx2/inClassEx2.qmd
+          - text: In-Class Exercise 3
+            
       - text: Take Home Exercises
         menu:
           - text: Take Home Exercise 1
             href: takeHome/takeHomeEx1/takeHomeEx1.qmd
+          - text: Take Home Exercise 2
+            
     right:
       - href: index.qmd
         text: Home
