@@ -3,9 +3,11 @@ title: "Hands-on/In-Class Exercise 3: Geographical Segmentation with Spatially C
 editor: visual
 ---
 
-| Update:
-| Added sections on ClustGeo and Visual Interpretation
-| Included some notes added in class
+> Update:
+>
+> Added sections on ClustGeo and Visual Interpretation
+>
+> Included some notes added in class
 
 ## Overview
 
@@ -869,7 +871,7 @@ We can now plot the map of the newly delineated spatially constrained clusters.
 qtm(shan_sf_Gcluster, "CLUSTER")
 ```
 
-| Skater method is 'hard' controlled by spanning tree while ClustGeo is 'soft' because homogeneity but still have because of the attribute.
+> Skater method is 'hard' controlled by spanning tree while ClustGeo is 'soft' because homogeneity but still have because of the attribute.
 
 ## Visual Interpretation of Clusters
 

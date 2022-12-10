@@ -3,7 +3,7 @@ title: "Hands-On/In Class Exercise 4: Geographically Weighted Regression (Chapte
 editor: visual
 ---
 
-| Update: included some notes added in class
+> Update: included some notes added in class
 
 # Overview
 
@@ -314,7 +314,7 @@ Correlation matrix is commonly used to visualise the relationships between the i
 
 The code chunk below is used to plot a scatterplot matrix of the relationship between the independent variables in *condo_resale* data.frame.
 
-| Note: condo_resale is used below, not using condo_resale.sf because it contains geometric/spatial fields
+> Note: condo_resale is used below, not using condo_resale.sf because it contains geometric/spatial fields
 
 ```{r}
 corrplot(cor(condo_resale[, 5:23]), diag = FALSE, order = "AOE",
@@ -356,8 +356,9 @@ condo.mlr1 <- lm(formula = SELLING_PRICE ~ AREA_SQM + AGE +
 ols_regress(condo.mlr1)
 ```
 
-| R\^2: Account for 65% of variation
-| Interpretation using signs and magnitude of the coeffiencts beta column
+> R\^2: Account for 65% of variation
+>
+> Interpretation using signs and magnitude of the coefficients beta column
 
 ## Preparing Publication Quality Table: gtsummary method
 
@@ -576,7 +577,7 @@ gwr.fixed
 
 The report shows that the adjusted r-square of the gwr is 0.8430 which is significantly better than the global multiple linear regression model of 0.6472.
 
-| Compare the AICc for models and the smaller one is the 'better' model. In this case, the AICc of GWR is lower 
+> Compare the AICc for models and the smaller one is the 'better' model. In this case, the AICc of GWR is lower
 
 ## Building Adaptive Bandwidth GWR Model
 
@@ -724,4 +725,4 @@ tmap_arrange(AREA_SQM_SE, AREA_SQM_TV,
              sync = TRUE)
 ```
 
-| sync = TRUE allows for the same interaction between both maps side by side
+> sync = TRUE allows for the same interaction between both maps side by side
