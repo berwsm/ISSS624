@@ -1,6 +1,10 @@
 ---
 title: "Take Home 2"
 editor: visual
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
 ---
 
 # Task
@@ -515,7 +519,7 @@ The code chunk below form the join in three steps:
 
 -   the *groups* list object will be converted into a matrix;
 
--   *cbind()* is used to append *groups* matrix onto nga_wp_sf to produce an output simple feature object called `nga_wp_sf_cluster`; and
+-   *cbind()* is used to append *groups* matrix onto nga_wp to produce an output simple feature object called `nga_cluster`; and
 
 -   *rename* of **dplyr** package is used to rename *as.matrix.groups*field as *CLUSTER*.
 
@@ -530,8 +534,6 @@ Next, *qtm()* of **tmap** package is used to plot the choropleth map showing
 qtm(nga_cluster, "CLUSTER")
 ```
 
-The choropleth map above reveals the clusters are very fragmented but we can identify xx.
-
 ```{r}
 ggparcoord(data = nga_cluster%>%
              select("ADM2_EN", 'wpt.functional','wpt.non.functional','wpt.unknown','pct_functional','pct_non.functional','pct_usagemore','pct_handpump','pct_othertech','pct_rural','CLUSTER'), 
@@ -539,10 +541,12 @@ ggparcoord(data = nga_cluster%>%
            scale = "std",
            alphaLines = 0.1,
            boxplot = TRUE, 
-           title = "Multiple Parallel Coordinates Plots of ICT Variables by Cluster") +
+           title = "Multiple Parallel Coordinates Plots of Water Point Variables by Cluster") +
   facet_grid(~ CLUSTER) + 
-  theme(axis.text.x = element_text(angle = 30))
+  theme(axis.text.x = element_text(angle = 90))
 ```
+
+From this, we can see that cluster 1 and cluster 6 have a higher number and percentage of non functional water points. We can see that in cluster 1, this coincides with a higher percentage of 'other' water technology, and cluster 6 coincides with higher percentage of handpump, which suggests that they might be less reliable than the mechanised pump. In cluster 3 there is a high number of unknown water points which might be worth investigating as well.
 
 # Spatially Constrained Clustering: SKATER approach
 
@@ -673,6 +677,22 @@ tmap_arrange(hclust.map, shclust.map,
              asp=NA, ncol=2)
 ```
 
+```{r}
+ggparcoord(data = nga_wp_sf_spatialcluster%>%
+             select("ADM2_EN", 'wpt.functional','wpt.non.functional','wpt.unknown','pct_functional','pct_non.functional','pct_usagemore','pct_handpump','pct_othertech','pct_rural','SP_CLUSTER'), 
+           columns = c(2:9), 
+           scale = "std",
+           alphaLines = 0.1,
+           boxplot = TRUE, 
+           title = "Multiple Parallel Coordinates Plots of Water Point Variables by Cluster") +
+  facet_grid(~ SP_CLUSTER) + 
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+We can see from the choropleth map comparison that the spatially constrained clustering is much less fragmented and dispersed around the map as compared to the hierarchical clustering.
+
+From the parallel coordinates plots, we can see that cluster 2 has a high level of functional water points and cluster 6 has a higher percentage of non-functional water points but low absolute number of water points. These 2 clusters are smaller and easier to interpret, whereas for the rest of the clusters are much larger and there are not very obvious interpretations for the clusters.
+
 # Spatially Constrained Clustering: ClustGeo Method
 
 Before we can performed spatially constrained hierarchical clustering, a spatial distance matrix will be derived by using [`st_distance()`](https://r-spatial.github.io/sf/reference/geos_measures.html) of sf package.
@@ -709,24 +729,47 @@ nga_wp_sf_Gcluster <- cbind(nga_wp, as.matrix(groups)) %>%
   rename(`CLUSTER` = `as.matrix.groups.`)
 ```
 
-We can not plot the map of the newly delineated spatially constrained clusters.
+## Visualising the clusters in choropleth map
+
+We can now plot the map of the newly delineated spatially constrained clusters.
 
 ```{r}
-qtm(nga_wp_sf_Gcluster, "CLUSTER")
+hclust.map <- qtm(nga_cluster,
+                  "CLUSTER") + 
+  tm_borders(alpha = 0.5) +
+  tm_legend(legend.text.size = 0.5,
+              legend.title.size=0.7)
+
+shclust.map <- qtm(nga_wp_sf_spatialcluster,
+                   "SP_CLUSTER") + 
+  tm_borders(alpha = 0.5) +
+  tm_legend(legend.text.size = 0.5,
+              legend.title.size=0.7)
+
+gclust.map <- qtm(nga_wp_sf_Gcluster,
+                   "CLUSTER") + 
+  tm_borders(alpha = 0.5) +
+  tm_legend(legend.text.size = 0.5,
+              legend.title.size=0.7)
+
+tmap_arrange(hclust.map, shclust.map, gclust.map,
+             asp=NA, ncol=3)
 ```
 
 ```{r}
-#| eval: false
-ggparcoord(data = nga_wp_sf_ngeo_cluster, 
-           columns = c(17:21), 
-           scale = "globalminmax",
-           alphaLines = 0.2,
+ggparcoord(data = nga_wp_sf_Gcluster%>%
+             select("ADM2_EN", 'wpt.functional','wpt.non.functional','wpt.unknown','pct_functional','pct_non.functional','pct_usagemore','pct_handpump','pct_othertech','pct_rural','CLUSTER'), 
+           columns = c(2:9), 
+           scale = "std",
+           alphaLines = 0.1,
            boxplot = TRUE, 
-           title = "Multiple Parallel Coordinates Plots of ICT Variables by Cluster") +
+           title = "Multiple Parallel Coordinates Plots of Water Point Variables by Cluster") +
   facet_grid(~ CLUSTER) + 
-  theme(axis.text.x = element_text(angle = 30))
+  theme(axis.text.x = element_text(angle = 90))
 ```
 
-Skater method is 'hard' controlled by spanning tree while ClustGeo is 'soft' because of homogeneity but still have because of the attribute.
+We can see from the choropleth map that the clusters from ClustGeo method is more evenly distributed in terms of cluster size than the SKATER method. We can see that cluster 1 and 3 has a higher percentage of non functional and unknown water points.
 
-\~ need to do non spatial first for take home 2
+# Conclusion
+
+Hierarchical clustering and spatial clustering each have their advantages and disadvantages and its usefulness depends on the use case or business plans for tackling the problem statement. Hierarchical clustering is able to have clearer interpretations for each cluster which allows us to focus on one cluster at a time depending on the severity of the water point availability. Spatial clustering is able to group clusters spatially so that we can focus on one area which may be more productive/easier operationally to fix and resolve the availability in one area.

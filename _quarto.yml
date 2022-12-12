@@ -26,12 +26,14 @@ website:
             href: handsOnEx/handsOnEx3/handsOnEx3.qmd
           - text: In-Class Exercise 4
             href: handsOnEx/handsOnEx4/handsOnEx4.qmd
+          - text: In-Class Exercise 5
             
       - text: Take Home Exercises
         menu:
           - text: Take Home Exercise 1
             href: takeHome/takeHomeEx1/takeHomeEx1.qmd
           - text: Take Home Exercise 2
+            href: takeHome/takeHomeEx2/takeHomeEx2.qmd
             
     right:
       - href: index.qmd
