@@ -27,6 +27,7 @@ website:
           - text: In-Class Exercise 4
             href: handsOnEx/handsOnEx4/handsOnEx4.qmd
           - text: In-Class Exercise 5
+            href: inClassEx/inClassEx5/inClassEx5.qmd
             
       - text: Take Home Exercises
         menu:
